@@ -27,6 +27,7 @@ public class CarListActivity extends AppCompatActivity {
 
     private CarService carService;
     private RecyclerView rvCarList;
+    private CarAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +71,7 @@ public class CarListActivity extends AppCompatActivity {
                     Log.d("MyApp:", "Car list size: " + cars.size());
 
                     // initialize adapter
-                    CarAdapter adapter = new CarAdapter(getApplicationContext(), cars);
+                    adapter = new CarAdapter(getApplicationContext(), cars);;
 
                     // set adapter to the RecyclerView
                     rvCarList.setAdapter(adapter);

@@ -35,7 +35,8 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder> {
     // adapter class definitions
 
     private List<Car> carsListData;   // list of book objects
-    private Context mContext;       // activity context
+    private Context mContext;   // activity context
+    private int currentPos;
 
     public CarAdapter(Context context, List<Car> listData) {
         carsListData = listData;
@@ -53,7 +54,8 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder> {
         // Inflate layout using the single item layout
         View view = inflater.inflate(R.layout.car_list_item, parent, false);
         // Return a new holder instance
-        return new ViewHolder(view);
+        ViewHolder viewHolder = new ViewHolder(view);
+        return viewHolder;
     }
 
     @Override
@@ -68,5 +70,17 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return carsListData.size();
+    }
+
+    /**
+     * return car object for currently selected car (index already set by long press in viewholder)
+     * @return
+     */
+    public Car getSelectedItem() {
+        // return the car record if the current selected position/index is valid
+        if(currentPos>=0 && carsListData !=null && currentPos<carsListData.size()) {
+            return carsListData.get(currentPos);
+        }
+        return null;
     }
 }

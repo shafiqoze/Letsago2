@@ -10,7 +10,7 @@ import retrofit2.http.Header;
 
 public interface CarService {
 
-    @GET("cars")
+    @GET("Cars")
     Call<List<Car>> getAllCars(@Header("api-key") String api_key);
 
 }
