@@ -119,6 +119,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.75"
                 android:inputType="number" />
+
+            <EditText
+                android:id="@+id/txtStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Status" />
+
         </LinearLayout>
 
         <LinearLayout

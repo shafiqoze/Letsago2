@@ -51,13 +51,14 @@ public class NewCarActivity extends AppCompatActivity {
         txtCarName = findViewById(R.id.txtCarName);
         txtCarPlateNo = findViewById(R.id.txtCarPlateNo);
         txtCarPrice = findViewById(R.id.txtCarPrice);
+        txtStatus = findViewById(R.id.txtStatus);
 
 
     }
 
 
     /**
-     * Called when Add Book button is clicked
+     * Called when Add Car button is clicked
      * @param v
      */
     public void addNewCar(View v) {
@@ -69,6 +70,9 @@ public class NewCarActivity extends AppCompatActivity {
         String CarPlateNo = txtCarPlateNo.getText().toString();
         String CarPrice = txtCarPrice.getText().toString();
         char Status = txtStatus.getText().toString().charAt(0);
+
+        Log.d("NewCarActivity", "Car details: ID=" + CarID + ", Brand=" + CarBrand + ", Name=" + CarName +
+                ", PlateNo=" + CarPlateNo + ", Price=" + CarPrice + ", Status=" + Status);
 
         // get user info from SharedPreferences
         SharePrefManager spm = new SharePrefManager(getApplicationContext());
@@ -87,7 +91,7 @@ public class NewCarActivity extends AppCompatActivity {
             public void onResponse(Call<Car> call, Response<Car> response) {
 
                 // for debug purpose
-                Log.d("MyApp:", "Response: " + response.raw().toString());
+                Log.d("NewCarActivity:", "Response: " + response.raw().toString());
 
                 if (response.code() == 201) {
                     // book added successfully
@@ -110,7 +114,7 @@ public class NewCarActivity extends AppCompatActivity {
                 else {
                     Toast.makeText(getApplicationContext(), "Error: " + response.message(), Toast.LENGTH_LONG).show();
                     // server return other error
-                    Log.e("MyApp: ", response.toString());
+                    Log.e("NewCarActivity: ", response.toString());
                 }
             }
 
