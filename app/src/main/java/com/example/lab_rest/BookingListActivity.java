@@ -76,8 +76,6 @@ public class BookingListActivity extends AppCompatActivity {
                     List<Booking> bookings = response.body();
 
                     // initialize adapter
-                    BookingAdapter adapter = new BookingAdapter(getApplicationContext(), bookings);
-
                     adapter = new BookingAdapter(getApplicationContext(), bookings);
 
                     // set adapter to the RecyclerView
@@ -85,11 +83,7 @@ public class BookingListActivity extends AppCompatActivity {
 
                     // set layout to recycler view
                     rvBookingList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
-                    // add separator between item in the list
-                    DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvBookingList.getContext(),
-                            DividerItemDecoration.VERTICAL);
-                    rvBookingList.addItemDecoration(dividerItemDecoration);
+                    rvBookingList.addItemDecoration(new DividerItemDecoration(rvBookingList.getContext(), DividerItemDecoration.VERTICAL));
                 }
                 else if (response.code() == 401) {
                     // invalid token, ask user to relogin
@@ -117,7 +111,7 @@ public class BookingListActivity extends AppCompatActivity {
         spm.logout();
 
         // terminate this MainActivity
-        finish();
+        //finish();
 
         // forward to Login Page
         Intent intent = new Intent(this, LoginActivity.class);
@@ -128,7 +122,7 @@ public class BookingListActivity extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.booking_context_menu, menu);
+        //inflater.inflate(R.menu.booking_context_menu, menu);
     }
 
     @Override
@@ -147,7 +141,7 @@ public class BookingListActivity extends AppCompatActivity {
         Log.d("MyApp:", "viewing details: " + selectedBooking.toString());
         // forward user to BookDetailsActivity, passing the selected book id
         Intent intent = new Intent(getApplicationContext(), BookingDetailsActivity.class);
-        intent.putExtra("booking_id", selectedBooking.getId());
+        intent.putExtra("booking_id", selectedBooking.getBookingID());
         startActivity(intent);
     }
 }

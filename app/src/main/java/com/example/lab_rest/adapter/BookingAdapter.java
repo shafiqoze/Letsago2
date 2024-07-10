@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lab_rest.R;
@@ -19,6 +20,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
      * Create ViewHolder class to bind list item view
      */
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
+
         public TextView tvBookingID;
         public TextView tvPrice;
         public TextView tvPickupDate;
@@ -59,6 +61,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
         return mContext;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();

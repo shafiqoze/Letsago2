@@ -46,7 +46,11 @@ public class MainActivity extends AppCompatActivity {
         else{
             // Greet user
             User user=spm.getUser();
-            tvHello.setText("Hello" + " " + user.getUsername());
+            if (user.getUsername() != null) {
+                tvHello.setText("Hello " + user.getUsername());
+            } else {
+                tvHello.setText("Hello Admin!");
+            }
         }
 
     }

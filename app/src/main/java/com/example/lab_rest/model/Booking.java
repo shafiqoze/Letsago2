@@ -14,13 +14,13 @@ public class Booking {
     }
 
     public Booking(int bookingID, String pickupDate, String returnDate, String status, String price, int id, int carID) {
-        BookingID = bookingID;
-        PickupDate = pickupDate;
-        ReturnDate = returnDate;
-        Status = status;
-        Price = price;
+        this.BookingID = bookingID;
+        this.PickupDate = pickupDate;
+        this.ReturnDate = returnDate;
+        this.Status = status;
+        this.Price = price;
         this.id = id;
-        CarID = carID;
+        this.CarID = carID;
     }
 
     public int getId() {

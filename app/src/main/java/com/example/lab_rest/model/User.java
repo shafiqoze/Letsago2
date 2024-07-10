@@ -13,6 +13,14 @@ public class User {
     private int is_active;
     private String secret;
 
+    public User(int id, String email, String username, String token, String role) {
+        this.id = id;
+        this.email = email;
+        this.username = username;
+        this.token = token;
+        this.role = role;
+    }
+
     public int getId() {
         return id;
     }

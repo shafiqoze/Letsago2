@@ -37,11 +37,14 @@ public class BookingDetailsActivity extends AppCompatActivity {
             return insets;
         });
 
+        Log.d("BookingDetailsActivity", "onCreate called");
+
         // retrieve book details based on selected id
 
         // get book id sent by BookListActivity, -1 if not found
         Intent intent = getIntent();
-        int bookId = intent.getIntExtra("book_id", -1);
+        int bookingID = intent.getIntExtra("booking_id", -1);
+        Log.d("BookingDetailsActivity", "Received bookingID: " + bookingID);
 
         // get user info from SharedPreferences
         SharePrefManager spm = new SharePrefManager(getApplicationContext());
@@ -52,7 +55,7 @@ public class BookingDetailsActivity extends AppCompatActivity {
         bookingService = ApiUtils.getBookingService();
 
         // execute the API query. send the token and book id
-        bookingService.getBooking(token, bookId).enqueue(new Callback<Booking>() {
+        bookingService.getBooking(token, bookingID).enqueue(new Callback<Booking>() {
 
             @Override
             public void onResponse(Call<Booking> call, Response<Booking> response) {
@@ -110,6 +113,5 @@ public class BookingDetailsActivity extends AppCompatActivity {
         // forward to Login Page
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
-
     }
 }
