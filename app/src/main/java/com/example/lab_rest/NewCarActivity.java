@@ -30,9 +30,6 @@ public class NewCarActivity extends AppCompatActivity {
     private EditText txtCarName;
     private EditText txtCarPlateNo;
     private EditText txtCarPrice;
-    private EditText txtStatus;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +48,7 @@ public class NewCarActivity extends AppCompatActivity {
         txtCarName = findViewById(R.id.txtCarName);
         txtCarPlateNo = findViewById(R.id.txtCarPlateNo);
         txtCarPrice = findViewById(R.id.txtCarPrice);
-        txtStatus = findViewById(R.id.txtStatus);
-
-
     }
-
 
     /**
      * Called when Add Car button is clicked
@@ -69,52 +62,46 @@ public class NewCarActivity extends AppCompatActivity {
         String CarName = txtCarName.getText().toString();
         String CarPlateNo = txtCarPlateNo.getText().toString();
         String CarPrice = txtCarPrice.getText().toString();
-        char Status = txtStatus.getText().toString().charAt(0);
 
         Log.d("NewCarActivity", "Car details: ID=" + CarID + ", Brand=" + CarBrand + ", Name=" + CarName +
-                ", PlateNo=" + CarPlateNo + ", Price=" + CarPrice + ", Status=" + Status);
+                ", PlateNo=" + CarPlateNo + ", Price=" + CarPrice);
 
         // get user info from SharedPreferences
         SharePrefManager spm = new SharePrefManager(getApplicationContext());
         User user = spm.getUser();
 
-        // create Car object
-        Car car = new Car(CarID, CarBrand, CarName, CarPlateNo, CarPrice, Status);
 
-        // send request to add new book to the REST API
+        // send request to add new car to the REST API
         CarService carService = ApiUtils.getCarService();
-        Call<Car> call = carService.addCar(user.getToken(), car);
+        Call<Car> call = carService.addCar(user.getToken(), CarID, CarBrand, CarName, CarPlateNo, CarPrice);
 
         // execute
         call.enqueue(new Callback<Car>() {
             @Override
             public void onResponse(Call<Car> call, Response<Car> response) {
-
                 // for debug purpose
-                Log.d("NewCarActivity:", "Response: " + response.raw().toString());
+                Log.d("MyApp:", "Response: " + response.raw().toString());
 
                 if (response.code() == 201) {
-                    // book added successfully
+                    // car added successfully
                     Car addedCar = response.body();
                     // display message
                     Toast.makeText(getApplicationContext(),
                             addedCar.getCarID() + " added successfully.",
                             Toast.LENGTH_LONG).show();
 
-                    // end this activity and forward user to BookListActivity
+                    // end this activity and forward user to CarListActivity
                     Intent intent = new Intent(getApplicationContext(), CarListActivity.class);
                     startActivity(intent);
                     finish();
-                }
-                else if (response.code() == 401) {
+                } else if (response.code() == 401) {
                     // invalid token, ask user to relogin
                     Toast.makeText(getApplicationContext(), "Invalid session. Please login again", Toast.LENGTH_LONG).show();
                     clearSessionAndRedirect();
-                }
-                else {
+                } else {
                     Toast.makeText(getApplicationContext(), "Error: " + response.message(), Toast.LENGTH_LONG).show();
                     // server return other error
-                    Log.e("NewCarActivity: ", response.toString());
+                    Log.e("MyApp: ", response.toString());
                 }
             }
 
@@ -128,7 +115,6 @@ public class NewCarActivity extends AppCompatActivity {
         });
     }
 
-
     public void clearSessionAndRedirect() {
         // clear the shared preferences
         SharePrefManager spm = new SharePrefManager(getApplicationContext());
@@ -140,6 +126,5 @@ public class NewCarActivity extends AppCompatActivity {
         // forward to Login Page
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
-
     }
 }

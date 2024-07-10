@@ -31,12 +31,16 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder> {
         }
     }
 
+
+
     //////////////////////////////////////////////////////////////////////
     // adapter class definitions
 
     private List<Car> carsListData;   // list of book objects
     private Context mContext;   // activity context
     private int currentPos;
+
+
 
     public CarAdapter(Context context, List<Car> listData) {
         carsListData = listData;

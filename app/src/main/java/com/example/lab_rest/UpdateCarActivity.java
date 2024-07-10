@@ -33,7 +33,7 @@ public class UpdateCarActivity extends AppCompatActivity {
     private EditText txtCarName;
     private EditText txtCarPlateNo;
     private EditText txtCarPrice;
-    private EditText txtStatus;
+
 
 
     private Car car;  // current book to be updated
@@ -62,7 +62,6 @@ public class UpdateCarActivity extends AppCompatActivity {
         txtCarName = findViewById(R.id.txtCarName);
         txtCarPlateNo = findViewById(R.id.txtCarPlateNo);
         txtCarPrice = findViewById(R.id.txtCarPrice);
-        txtStatus = findViewById(R.id.txtStatus);
 
         // retrieve book info from database using the book id
         // get user info from SharedPreferences
@@ -136,7 +135,6 @@ public class UpdateCarActivity extends AppCompatActivity {
         String CarName = txtCarName.getText().toString();
         String CarPlateNo = txtCarPlateNo.getText().toString();
         String CarPrice = txtCarPrice.getText().toString();
-        char Status = txtStatus.getText().toString().charAt(0);
 
         Log.d("MyApp:", "Old Car info: " + car.toString());
 
@@ -147,7 +145,7 @@ public class UpdateCarActivity extends AppCompatActivity {
         car.setCarPrice(CarPrice);
         car.setCarPlateNo(CarPlateNo);
         car.setCarName(CarName);
-        car.setStatus(Status);
+
 
         Log.d("MyApp:", "New Book info: " + car.toString());
 
@@ -155,12 +153,10 @@ public class UpdateCarActivity extends AppCompatActivity {
         SharePrefManager spm = new SharePrefManager(getApplicationContext());
         User user = spm.getUser();
 
-        // create Car object
-        Car updateCar = new Car(CarID, CarBrand, CarName, CarPlateNo, CarPrice, Status);
-
         // send request to update the book record to the REST API
         CarService carService = ApiUtils.getCarService();
-        Call<Car> call = carService.addCar(user.getToken(),car);
+        Call<Car> call = carService.updateCar(user.getToken(), CarID, CarBrand, CarName, CarPlateNo, CarPrice);
+
 
         // execute
         call.enqueue(new Callback<Car>() {
