@@ -1,11 +1,13 @@
 package com.example.lab_rest.remote;
 
 import com.example.lab_rest.model.Car;
+import com.example.lab_rest.model.DeleteResponse;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -36,5 +38,10 @@ public interface CarService {
             @Body Car car
     );
 
+    @DELETE("Car/{id}")
+    Call<DeleteResponse> deleteCar(
+            @Header("Authorization") String token,
+            @Path("id") int id
+    );
 
 }
