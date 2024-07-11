@@ -5,6 +5,6 @@
 
     <item android:id="@+id/booking_details"
         android:showAsAction="always"
-        android:title="Details" />
+        android:title="Details"/>
 
 </menu>
