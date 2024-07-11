@@ -1,69 +1,39 @@
 package com.example.lab_rest.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Car {
-    private int CarID;
-    private String CarName;
-    private String CarBrand;
-    private String CarPrice;
-    private String CarPlateNo;
 
-    // Constructor without status
-    public Car(int carID, String carName, String carBrand, String carPrice, String carPlateNo) {
-        CarID = carID;
-        CarName = carName;
-        CarBrand = carBrand;
-        CarPrice = carPrice;
-        CarPlateNo = carPlateNo;
+    @SerializedName("id")
+    private int id;
+
+    @SerializedName("name")
+    private String name;
+
+    @SerializedName("model")
+    private String model;
+
+    public Car() {
     }
 
-    public int getCarID() {
-        return CarID;
+    public Car(int id, String name, String model) {
+        this.id = id;
+        this.name = name;
+        this.model = model;
     }
 
-    public void setCarID(int carID) {
-        CarID = carID;
-    }
+    // Getters and setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public String getCarName() {
-        return CarName;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public void setCarName(String carName) {
-        CarName = carName;
-    }
-
-    public String getCarBrand() {
-        return CarBrand;
-    }
-
-    public void setCarBrand(String carBrand) {
-        CarBrand = carBrand;
-    }
-
-    public String getCarPrice() {
-        return CarPrice;
-    }
-
-    public void setCarPrice(String carPrice) {
-        CarPrice = carPrice;
-    }
-
-    public String getCarPlateNo() {
-        return CarPlateNo;
-    }
-
-    public void setCarPlateNo(String carPlateNo) {
-        CarPlateNo = carPlateNo;
-    }
+    public String getModel() { return model; }
+    public void setModel(String model) { this.model = model; }
 
     @Override
     public String toString() {
-        return "Car{" +
-                "id=" + CarID +
-                ", name='" + CarName + '\'' +
-                ", brand='" + CarBrand + '\'' +
-                ", price='" + CarPrice + '\'' +
-                ", plate no='" + CarPlateNo + '\'' +
-                '}';
+        return name;
     }
 }

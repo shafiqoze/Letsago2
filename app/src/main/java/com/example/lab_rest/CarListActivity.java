@@ -1,32 +1,22 @@
 package com.example.lab_rest;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.lab_rest.adapter.CarAdapter;
 import com.example.lab_rest.model.Car;
-import com.example.lab_rest.model.DeleteResponse;
-import com.example.lab_rest.model.User;
 import com.example.lab_rest.remote.ApiUtils;
-import com.example.lab_rest.remote.CarService;
-import com.example.lab_rest.sharedpref.SharePrefManager;
+import com.example.lab_rest.remote.RentalService;
+import com.example.lab_rest.sharedpref.SharedPrefManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -35,211 +25,61 @@ import retrofit2.Response;
 
 public class CarListActivity extends AppCompatActivity {
 
-    private CarService carService;
-    private RecyclerView rvCarList;
-    private CarAdapter adapter;
+    private RentalService rentalService;
+    private List<Car> carList;
+    private ListView carListView;
+    private ArrayAdapter<String> carAdapter;
+    private List<String> carNames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_list);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        carListView = findViewById(R.id.listViewCars);
+
+        rentalService = ApiUtils.getRentalService();
+        loadCarList();
+
+        carListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Car selectedCar = carList.get(position);
+                Intent intent = new Intent(CarListActivity.this, NewRentalActivity.class);
+                intent.putExtra("carId", selectedCar.getId());
+                intent.putExtra("carName", selectedCar.getName());
+                intent.putExtra("carModel", selectedCar.getModel());
+                startActivity(intent);
+            }
         });
-
-        // get reference to the RecyclerView carList
-        rvCarList = findViewById(R.id.rvCarList);
-
-        //register for context menu
-        registerForContextMenu(rvCarList);
-
-        // fetch and update car list
-        updateRecyclerView();
     }
 
-    private void updateRecyclerView() {
-        // get user info from SharedPreferences to get token value
-        SharePrefManager spm = new SharePrefManager(getApplicationContext());
-        User user = spm.getUser();
-        String token = user.getToken();
+    private void loadCarList() {
+        SharedPrefManager spm = SharedPrefManager.getInstance(getApplicationContext());
+        String apiKey = spm.getUser().getToken();
 
-        // get book service instance
-        carService = ApiUtils.getCarService();
-
-        // execute the call. send the user token when sending the query
-        carService.getAllCars(token).enqueue(new Callback<List<Car>>() {
+        rentalService.getAllCars(apiKey).enqueue(new Callback<List<Car>>() {
             @Override
             public void onResponse(Call<List<Car>> call, Response<List<Car>> response) {
-                // for debug purpose
-                Log.d("MyApp:", "Response: " + response.raw().toString());
-
-                if (response.code() == 200) {
-                    // Get list of car object from response
-                    List<Car> books = response.body();
-
-                    // initialize adapter
-                    adapter = new CarAdapter(getApplicationContext(), books);
-
-                    // set adapter to the RecyclerView
-                    rvCarList.setAdapter(adapter);
-
-                    // set layout to recycler view
-                    rvCarList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
-                    // add separator between item in the list
-                    DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvCarList.getContext(),
-                            DividerItemDecoration.VERTICAL);
-                    rvCarList.addItemDecoration(dividerItemDecoration);
-                }
-                else if (response.code() == 401) {
-                    // invalid token, ask user to relogin
-                    Toast.makeText(getApplicationContext(), "Invalid session. Please login again", Toast.LENGTH_LONG).show();
-                    clearSessionAndRedirect();
-                }
-                else {
-                    Toast.makeText(getApplicationContext(), "Error: " + response.message(), Toast.LENGTH_LONG).show();
-                    // server return other error
-                    Log.e("MyApp: ", response.toString());
+                if (response.isSuccessful() && response.body() != null) {
+                    carList = response.body();
+                    carNames = new ArrayList<>();
+                    for (Car car : carList) {
+                        carNames.add(car.getName());
+                    }
+                    carAdapter = new ArrayAdapter<>(CarListActivity.this, android.R.layout.simple_list_item_1, carNames);
+                    carListView.setAdapter(carAdapter);
+                } else {
+                    Toast.makeText(CarListActivity.this, "Failed to load car list: " + response.message(), Toast.LENGTH_SHORT).show();
+                    Log.e("CarListActivity", "Failed to load car list: " + response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<List<Car>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Error connecting to the server", Toast.LENGTH_LONG).show();
-                Log.e("MyApp:", t.toString());
+                Toast.makeText(CarListActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("CarListActivity", "Error: " + t.getMessage());
             }
         });
-    }
-
-    /**
-     * Delete car record. Called by contextual menu "Delete"
-     * @param selectedCar - car selected by user
-     */
-    private void doDeleteCar(Car selectedCar) {
-        // get user info from SharedPreferences
-        SharePrefManager spm = new SharePrefManager(getApplicationContext());
-        User user = spm.getUser();
-
-        // prepare REST API call
-        CarService carService = ApiUtils.getCarService();
-        Call<DeleteResponse> call = carService.deleteCar(user.getToken(), selectedCar.getCarID());
-
-        // execute the call
-        call.enqueue(new Callback<DeleteResponse>() {
-            @Override
-            public void onResponse(Call<DeleteResponse> call, Response<DeleteResponse> response) {
-                if (response.code() == 200) {
-                    // 200 means OK
-                    displayAlert("Car successfully deleted");
-                    // update data in list view
-                    updateRecyclerView();
-                }
-                else if (response.code() == 401) {
-                    // invalid token, ask user to relogin
-                    Toast.makeText(getApplicationContext(), "Invalid session. Please login again", Toast.LENGTH_LONG).show();
-                    clearSessionAndRedirect();
-                }
-                else {
-                    Toast.makeText(getApplicationContext(), "Error: " + response.message(), Toast.LENGTH_LONG).show();
-                    // server return other error
-                    Log.e("MyApp: ", response.toString());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<DeleteResponse> call, Throwable t) {
-                displayAlert("Error [" + t.getMessage() + "]");
-                Log.e("MyApp:", t.getMessage());
-            }
-        });
-    }
-
-    /**
-     * Displaying an alert dialog with a single button
-     * @param message - message to be displayed
-     */
-    public void displayAlert(String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(message)
-                .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        //do things
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-    public void clearSessionAndRedirect() {
-        // clear the shared preferences
-        SharePrefManager spm = new SharePrefManager(getApplicationContext());
-        spm.logout();
-
-        // terminate this MainActivity
-        finish();
-
-        // forward to Login Page
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.car_context_menu, menu);
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        Car selectedCar = adapter.getSelectedItem();
-        Log.d("MyApp", "selected "+selectedCar.toString());    // debug purpose
-
-        if (item.getItemId() == R.id.menu_details) {
-            // user clicked details contextual menu
-            doViewDetails(selectedCar);
-        }
-        else if (item.getItemId() == R.id.menu_delete) {
-            // user clicked the delete contextual menu
-            doDeleteCar(selectedCar);
-        }
-        else if (item.getItemId() == R.id.menu_update){
-            //user clicked the update contextual menu
-            doUpdateCar(selectedCar);
-        }
-
-        return super.onContextItemSelected(item);
-    }
-
-    private void doUpdateCar(Car selectedCar) {
-        Log.d("MyApp:", "updating book: " + selectedCar.toString());
-        // forward user to UpdateCarActivity, passing the selected book id
-        Intent intent = new Intent(getApplicationContext(),UpdateCarActivity.class);
-        intent.putExtra("car_id", selectedCar.getCarID());
-        startActivity(intent);
-    }
-
-
-    private void doViewDetails(Car selectedCar) {
-        Log.d("MyApp:", "viewing details: " + selectedCar.toString());
-        // forward user to CarDetailsActivity, passing the selected car id
-        Intent intent = new Intent(getApplicationContext(), CarDetailsActivity.class);
-        intent.putExtra("car_id", selectedCar.getCarID());
-        startActivity(intent);
-    }
-
-    /*
-     * Action handler for Add Car floating action button
-     * @param view
-     */
-    public void floatingAddCarClicked(View view) {
-        // forward user to NewCarActivity
-        Intent intent = new Intent(getApplicationContext(), NewCarActivity.class);
-        startActivity(intent);
     }
 }
