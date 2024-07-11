@@ -11,9 +11,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.lab_rest.model.User;
 import com.example.lab_rest.sharedpref.SharePrefManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -81,4 +85,5 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), BookingListActivity.class);
         startActivity(intent);
     }
+
 }
