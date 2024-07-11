@@ -42,4 +42,17 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     //Gson -> json data to java or kotlin format
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+
+    //Material Design for UI
+    implementation ("com.google.android.material:material:1.3.0")
+
+    // Picasso For Image Loading
+    implementation ("com.squareup.picasso:picasso:2.71828")
+
+    // Ken Burns View For Ken Burns Effect
+    implementation ("com.flaviofaria:kenburnsview:1.0.7")
+
+    // Smooth Bottom Bar For Animated Bottom Navigation
+    implementation ("com.github.ibrahimsn98:SmoothBottomBar:1.7.3")
+
 }
