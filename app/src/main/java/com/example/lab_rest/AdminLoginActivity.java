@@ -31,9 +31,9 @@ public class AdminLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_login);
 
-        editTextUsername = findViewById(R.id.edtUsername);
-        editTextPassword = findViewById(R.id.edtPassword);
-        buttonLogin = findViewById(R.id.btnLogin);
+        editTextUsername = findViewById(R.id.editTextUsername);
+        editTextPassword = findViewById(R.id.editTextPassword);
+        buttonLogin = findViewById(R.id.buttonLogin);
 
         sharedPrefManager = new SharedPrefManager(getApplicationContext());
 
