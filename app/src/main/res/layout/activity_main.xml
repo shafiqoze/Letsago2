@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@drawable/mainmenu"
     tools:context=".MainActivity">
 
     <TextView
@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="WELCOME TO LETASGO CAR RENTAL"
+        android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/btnLogout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,20 +27,22 @@
         android:layout_marginBottom="264dp"
         android:text="LOGOUT"
         android:onClick="logoutClicked"
+        android:backgroundTint="#951015"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnBookingList"/>
 
     <Button
         android:id="@+id/btnCarList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="10dp"
         android:text="CAR LIST"
         android:onClick="carListClicked"
         android:textColorLink="#E91E63"
-        android:backgroundTint="#009688"
+        android:backgroundTint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvHello" />
@@ -48,11 +51,11 @@
         android:id="@+id/btnBookingList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="5dp"
         android:text="BOOKING LIST"
         android:onClick="bookingListClicked"
         android:textColorLink="#E91E63"
-        android:backgroundTint="#009688"
+        android:backgroundTint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnCarList" />
@@ -99,7 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:text="@string/hello_natalie"
+        android:text="Hello!"
         android:textColor="#212121"
         android:textSize="18sp"
         android:textStyle="bold"

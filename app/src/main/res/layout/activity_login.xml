@@ -2,24 +2,41 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background"
     tools:context="com.example.lab_rest.LoginActivity"
     android:id="@+id/login">
+
+    <TextView
+        android:id="@+id/signin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="190dp"
+        android:layout_marginEnd="3dp"
+        android:gravity="center"
+        android:text="LetsAGo"
+        android:textColor="@color/black"
+        android:textSize="60dp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="-6dp"
+        android:layout_marginBottom="26dp"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="60dp">
 
         <EditText
             android:id="@+id/edtUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:hint="Username"
             android:inputType="text" />
 
@@ -27,8 +44,8 @@
             android:id="@+id/edtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="sans-serif"
             android:hint="Password"
             android:inputType="textPassword" />
@@ -37,18 +54,19 @@
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:onClick="loginClicked"
-            android:text="Login" />
+            android:text="Login"
+            android:backgroundTint="@color/black"/>
 
         <TextView
             android:id="@+id/textViewRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
-            android:text="Dont' have an account?\nRegister Here"
+            android:layout_marginBottom="8dp"
+            android:text="Don't have an account?\nRegister Here"
             android:textAlignment="center"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
 
