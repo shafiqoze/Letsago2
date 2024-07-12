@@ -8,8 +8,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -21,24 +19,29 @@ public interface CarService {
     @GET("Cars")
     Call<List<Car>> getAllCars(@Header("api-key") String api_key);
 
-    @GET("car/{id}")
-    Call<Car> getCar(@Header("api-key") String api_key, @Path("id") int id);
+    @POST("Cars")
+    Call<Car> addCar(
+            @Header("Authorization") String token,
+            @Body Car car
+    );
 
-    @FormUrlEncoded
-    @POST("car")
-    Call<Car> addCar(@Header ("api-key") String apiKey, @Field("CarID") int CarID,
-                       @Field("CarBrand") String CarBrand, @Field("CarName") String CarName,
-                       @Field("CarPlateNo") String CarPlateNo, @Field("CarPrice")  String CarPrice);
+    @GET("Cars/{id}")
+    Call<Car> getCar(
+            @Header("Authorization") String token,
+            @Path("id") int id
+    );
 
-    @DELETE("car/{id}")
-    Call<DeleteResponse> deleteCar(@Header("api-key") String apikey, @Path("id") int id);
+    @PUT("Cars/{id}")
+    Call<Car> updateCar(
+            @Header("Authorization") String token,
+            @Path("id") int id,
+            @Body Car car
+    );
 
-    @FormUrlEncoded
-    @POST("car/{id}")
-    Call<Car> updateCar(@Header ("api-key") String apiKey, @Field("CarID") int CarID,
-                        @Field("CarBrand") String CarBrand, @Field("CarName") String CarName,
-                        @Field("CarPlateNo") String CarPlateNo, @Field("CarPrice")  String CarPrice);
-
-
+    @DELETE("Car/{id}")
+    Call<DeleteResponse> deleteCar(
+            @Header("Authorization") String token,
+            @Path("id") int id
+    );
 
 }

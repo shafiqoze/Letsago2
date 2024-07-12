@@ -79,6 +79,7 @@ public class CarDetailsActivity extends AppCompatActivity {
                     tvCarName.setText(car.getCarName());
                     tvCarPlateNo.setText(car.getCarPlateNo());
                     tvCarPrice.setText(car.getCarPrice());
+                    tvStatus.setText(String.valueOf(car.getStatus()));
                 }
                 else if (response.code() == 401) {
                     // unauthorized error. invalid token, ask user to relogin

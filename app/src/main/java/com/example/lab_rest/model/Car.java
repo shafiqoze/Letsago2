@@ -6,14 +6,18 @@ public class Car {
     private String CarBrand;
     private String CarPrice;
     private String CarPlateNo;
+    private char Status;
 
-    // Constructor without status
-    public Car(int carID, String carName, String carBrand, String carPrice, String carPlateNo) {
+    public Car() {
+    }
+
+    public Car(int carID, String carName, String carBrand, String carPrice, String carPlateNo, char status) {
         CarID = carID;
         CarName = carName;
         CarBrand = carBrand;
         CarPrice = carPrice;
         CarPlateNo = carPlateNo;
+        Status = status;
     }
 
     public int getCarID() {
@@ -56,6 +60,14 @@ public class Car {
         CarPlateNo = carPlateNo;
     }
 
+    public char getStatus() {
+        return Status;
+    }
+
+    public void setStatus(char status) {
+        Status = status;
+    }
+
     @Override
     public String toString() {
         return "Car{" +
@@ -64,6 +76,7 @@ public class Car {
                 ", brand='" + CarBrand + '\'' +
                 ", price='" + CarPrice + '\'' +
                 ", plate no='" + CarPlateNo + '\'' +
+                ", status='" + Status + '\'' +
                 '}';
     }
 }
