@@ -3,21 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@drawable/add"
     android:padding="16dp">
-
-    <TextView
-        android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="3dp"
-        android:gravity="center"
-        android:text="Rental Details"
-        android:textColor="@color/black"
-        android:textSize="30dp"
-        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvCustomerName"
@@ -25,7 +11,6 @@
         android:layout_height="wrap_content"
         android:text="Customer Name"
         android:textSize="18sp"
-        android:layout_marginTop="30dp"
         android:layout_marginBottom="8dp" />
 
     <TextView

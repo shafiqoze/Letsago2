@@ -1,25 +1,25 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/admindashboard"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/mainmenu"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
+
+    <!-- Background Image -->
+    <ImageView
+        android:id="@+id/background_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+         />
+    <!--android:src="@drawable/bgnew"-->
 
     <Button
         android:id="@+id/buttonAddCar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:backgroundTint="#000000"
-        android:onClick="onAddCarClicked"
+        android:layout_marginTop="450dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:text="Add Car"
-        android:textColorLink="#E91E63"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textGoing"/>
+        android:onClick="onAddCarClicked" />
 
     <Button
         android:id="@+id/buttonViewBookings"
@@ -29,106 +29,15 @@
         android:layout_margin="16dp"
         android:text="View Bookings"
         android:layout_centerHorizontal="true"
-        android:onClick="onViewBookingsClicked"
-        android:textColorLink="#E91E63"
-        android:backgroundTint="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonAddCar" />
+        android:onClick="onViewBookingsClicked" />
 
     <Button
         android:id="@+id/buttonLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/buttonViewBookings"
-        android:layout_centerHorizontal="true"
         android:layout_margin="16dp"
-        android:backgroundTint="#951015"
-        android:onClick="onLogoutClicked"
         android:text="Logout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonViewBookings"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <me.ibrahimsn.lib.SmoothBottomBar
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:id="@+id/bottomBar"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        app:iconSize="20dp"
-        app:iconTint="#757575"
-        app:iconTintActive="#212121"
-        app:indicatorColor="#ECECEC"
-        app:indicatorRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/navigation_menu"
-        app:textColor="#212121"
-        app:textSize="15sp" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardProfilePicture"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="@drawable/profile_picture"
-            android:scaleType="centerCrop"
-            android:src="@drawable/profile_picture"/>
-
-    </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:id="@+id/textHello"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:text="Hello!"
-        android:textColor="#212121"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/cardProfilePicture"
-        app:layout_constraintEnd_toStartOf="@id/cardProfilePicture"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/cardProfilePicture" />
-
-    <TextView
-        android:id="@+id/textWhereAreWe"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:text="A renter?"
-        android:textColor="#212121"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/cardProfilePicture" />
-
-    <TextView
-        android:id="@+id/textGoing"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Got Car to be Rent?"
-        android:textColor="#757575"
-        android:textSize="20sp"
-        android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.082"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textWhereAreWe" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_centerHorizontal="true"
+        android:onClick="onLogoutClicked" />
+</RelativeLayout>

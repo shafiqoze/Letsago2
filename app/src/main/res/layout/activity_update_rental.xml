@@ -2,30 +2,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/base"
-    android:padding="16dp">
-
-    <TextView
-        android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="3dp"
-        android:gravity="center"
-        android:text="Update Rental"
-        android:textColor="@color/black"
-        android:textSize="30dp"
-        android:textStyle="bold" />
-
-
-
+    android:padding="16dp"
+    >
+    <!--android:background="@drawable/bg4"-->
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Customer Name:"
-        android:layout_marginTop="30dp"/>
+        android:text="Update Rental"
+        android:layout_marginTop="50dp"
+        android:textSize="24sp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Customer Name:" />
 
     <EditText
         android:id="@+id/txtCustomerName"
@@ -71,8 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Pick Date"
-        android:onClick="showPickupDatePickerDialog"
-        android:backgroundTint="@color/black"/>
+        android:onClick="showPickupDatePickerDialog" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -91,8 +83,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Pick Date"
-        android:onClick="showReturnDatePickerDialog"
-        android:backgroundTint="@color/black"/>
+        android:onClick="showReturnDatePickerDialog" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -110,6 +101,5 @@
         android:layout_height="wrap_content"
         android:text="Update Rental"
         android:layout_marginTop="16dp"
-        android:onClick="updateRental"
-        android:backgroundTint="@color/black"/>
+        android:onClick="updateRental" />
 </LinearLayout>
