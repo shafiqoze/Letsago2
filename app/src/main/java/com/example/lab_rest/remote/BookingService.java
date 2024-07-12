@@ -1,8 +1,5 @@
 package com.example.lab_rest.remote;
 
-import com.example.lab_rest.model.Booking;
-import com.example.lab_rest.model.Booking;
-
 import java.util.List;
 
 import retrofit2.Call;

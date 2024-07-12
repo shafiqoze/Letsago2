@@ -17,7 +17,7 @@ import com.example.lab_rest.model.FailLogin;
 import com.example.lab_rest.model.User;
 import com.example.lab_rest.remote.ApiUtils;
 import com.example.lab_rest.remote.UserService;
-import com.example.lab_rest.sharedpref.SharePrefManager;
+import com.example.lab_rest.sharedpref.SharedPrefManager;
 import com.google.gson.Gson;
 
 import retrofit2.Call;
@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
                         displayToast("Token: " + user.getToken());
 
                         //store value in shared preferences
-                        SharePrefManager spm = new SharePrefManager(getApplicationContext());
+                        SharedPrefManager spm = new SharedPrefManager(getApplicationContext());
                         spm.storeUser(user);
 
                         //forward user to MainActivity

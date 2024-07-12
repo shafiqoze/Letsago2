@@ -11,13 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.lab_rest.model.User;
-import com.example.lab_rest.sharedpref.SharePrefManager;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.lab_rest.sharedpref.SharedPrefManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         // greet the user
         // if the user is not logged in we will directly them to LoginActivity
-        SharePrefManager spm=new SharePrefManager(getApplicationContext());
+        SharedPrefManager spm=new SharedPrefManager(getApplicationContext());
         if(!spm.isLoggedIn()){ // no session record
             // stop this main activity
             finish();
@@ -60,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void logoutClicked(View view) {
-        SharePrefManager spm = new SharePrefManager(getApplicationContext());
+        SharedPrefManager spm = new SharedPrefManager(getApplicationContext());
         spm.logout();
 
         Toast.makeText(getApplicationContext(), "You have successfully logged out.",

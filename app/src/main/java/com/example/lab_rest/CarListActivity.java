@@ -25,7 +25,7 @@ import com.example.lab_rest.model.DeleteResponse;
 import com.example.lab_rest.model.User;
 import com.example.lab_rest.remote.ApiUtils;
 import com.example.lab_rest.remote.CarService;
-import com.example.lab_rest.sharedpref.SharePrefManager;
+import com.example.lab_rest.sharedpref.SharedPrefManager;
 
 import java.util.List;
 
@@ -61,7 +61,7 @@ public class CarListActivity extends AppCompatActivity {
 
     private void updateRecyclerView() {
         // get user info from SharedPreferences to get token value
-        SharePrefManager spm = new SharePrefManager(getApplicationContext());
+        SharedPrefManager spm = new SharedPrefManager(getApplicationContext());
         User user = spm.getUser();
         String token = user.getToken();
 
@@ -119,7 +119,7 @@ public class CarListActivity extends AppCompatActivity {
      */
     private void doDeleteCar(Car selectedCar) {
         // get user info from SharedPreferences
-        SharePrefManager spm = new SharePrefManager(getApplicationContext());
+        SharedPrefManager spm = new SharedPrefManager(getApplicationContext());
         User user = spm.getUser();
 
         // prepare REST API call
@@ -176,7 +176,7 @@ public class CarListActivity extends AppCompatActivity {
 
     public void clearSessionAndRedirect() {
         // clear the shared preferences
-        SharePrefManager spm = new SharePrefManager(getApplicationContext());
+        SharedPrefManager spm = new SharedPrefManager(getApplicationContext());
         spm.logout();
 
         // terminate this MainActivity
@@ -194,51 +194,4 @@ public class CarListActivity extends AppCompatActivity {
         inflater.inflate(R.menu.car_context_menu, menu);
     }
 
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        Car selectedCar = adapter.getSelectedItem();
-        Log.d("MyApp", "selected "+selectedCar.toString());    // debug purpose
-
-        if (item.getItemId() == R.id.menu_details) {
-            // user clicked details contextual menu
-            doViewDetails(selectedCar);
-        }
-        else if (item.getItemId() == R.id.menu_delete) {
-            // user clicked the delete contextual menu
-            doDeleteCar(selectedCar);
-        }
-        else if (item.getItemId() == R.id.menu_update){
-            //user clicked the update contextual menu
-            doUpdateCar(selectedCar);
-        }
-
-        return super.onContextItemSelected(item);
-    }
-
-    private void doUpdateCar(Car selectedCar) {
-        Log.d("MyApp:", "updating book: " + selectedCar.toString());
-        // forward user to UpdateCarActivity, passing the selected book id
-        Intent intent = new Intent(getApplicationContext(),UpdateCarActivity.class);
-        intent.putExtra("car_id", selectedCar.getCarID());
-        startActivity(intent);
-    }
-
-
-    private void doViewDetails(Car selectedCar) {
-        Log.d("MyApp:", "viewing details: " + selectedCar.toString());
-        // forward user to CarDetailsActivity, passing the selected car id
-        Intent intent = new Intent(getApplicationContext(), CarDetailsActivity.class);
-        intent.putExtra("car_id", selectedCar.getCarID());
-        startActivity(intent);
-    }
-
-    /*
-     * Action handler for Add Car floating action button
-     * @param view
-     */
-    public void floatingAddCarClicked(View view) {
-        // forward user to NewCarActivity
-        Intent intent = new Intent(getApplicationContext(), NewCarActivity.class);
-        startActivity(intent);
-    }
 }

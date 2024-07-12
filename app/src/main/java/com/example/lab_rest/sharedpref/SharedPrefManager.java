@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 import com.example.lab_rest.model.User;
 
-public class SharePrefManager {
+public class SharedPrefManager {
     //the constants
     private static final String SHARED_PREF_NAME = "letsagopref";
     private static final String KEY_ID = "key_id";
@@ -16,7 +16,7 @@ public class SharePrefManager {
 
     private final Context mCtx;
 
-    public SharePrefManager(Context context) {
+    public SharedPrefManager(Context context) {
         mCtx = context;
     }
 

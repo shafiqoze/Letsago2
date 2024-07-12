@@ -31,12 +31,13 @@ public interface CarService {
             @Path("id") int id
     );
 
+
     @PUT("Cars/{id}")
-    Call<Car> updateCar(
-            @Header("Authorization") String token,
-            @Path("id") int id,
-            @Body Car car
+        Call<Car> updateCar(
+                @Header("Authorization") String token,
+                @Body Car car
     );
+
 
     @DELETE("Car/{id}")
     Call<DeleteResponse> deleteCar(
