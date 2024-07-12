@@ -7,7 +7,6 @@ import com.example.lab_rest.model.DeleteResponse;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
