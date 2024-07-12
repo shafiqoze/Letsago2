@@ -1,6 +1,8 @@
 package com.example.lab_rest.model;
 
 public class User {
+
+    // represent a record in users tables
     private int id;
     private String email;
     private String username;
@@ -11,31 +13,83 @@ public class User {
     private int is_active;
     private String secret;
 
-    // Getters and setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public User(int id, String email, String username, String token, String role) {
+        this.id = id;
+        this.email = email;
+        this.username = username;
+        this.token = token;
+        this.role = role;
+    }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public int getId() {
+        return id;
+    }
 
-    public String getUsername() { return username; }
-    public void setUsername(String username) { this.username = username; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
+    public String getEmail() {
+        return email;
+    }
 
-    public String getToken() { return token; }
-    public void setToken(String token) { this.token = token; }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-    public String getLease() { return lease; }
-    public void setLease(String lease) { this.lease = lease; }
+    public String getUsername() {
+        return username;
+    }
 
-    public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-    public int getIs_active() { return is_active; }
-    public void setIs_active(int is_active) { this.is_active = is_active; }
+    public String getPassword() {
+        return password;
+    }
 
-    public String getSecret() { return secret; }
-    public void setSecret(String secret) { this.secret = secret; }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getLease() {
+        return lease;
+    }
+
+    public void setLease(String lease) {
+        this.lease = lease;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public int getIs_active() {
+        return is_active;
+    }
+
+    public void setIs_active(int is_active) {
+        this.is_active = is_active;
+    }
+
+    public String getSecret() {
+        return secret;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
 }

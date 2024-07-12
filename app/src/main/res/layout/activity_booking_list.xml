@@ -5,34 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/main"
+    tools:context=".BookingListActivity">
 
-    tools:context=".RentalListActivity">
-    <!--android:background="@drawable/bgnew3"-->
-
-    <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvRentalList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp"
-        android:layout_marginTop="150dp"/>
+        android:id="@+id/rvBookingList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
-    <!-- Container for Floating Action Button -->
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
-
-        <!-- Floating Action Button with Padding to Adjust Position -->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="16dp"
-            android:contentDescription="Add New Rental"
-            android:onClick="floatingAddRentalClicked"
-            app:srcCompat="@drawable/baseline_add_24" />
-
-    </FrameLayout>
 </RelativeLayout>

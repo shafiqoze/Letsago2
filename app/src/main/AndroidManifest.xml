@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.lab_rest">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -16,54 +15,33 @@
         android:theme="@style/Theme.Lab_REST"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
-        <!-- MainActivity - Set LoginActivity as the launcher activity -->
         <activity
-            android:name=".LoginActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <!-- Other Activities -->
-        <activity
-            android:name=".MainActivity"
+            android:name=".BookingDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".UpdateRentalActivity"
-            android:exported="false" />
-        <activity
-            android:name=".NewRentalActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RentalDetailsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RentalListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AdminLoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AdminDashboardActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AddCarActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RentalListAdminActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CustomerDashboardActivity"
+            android:name=".BookingListActivity"
             android:exported="false" />
         <activity
             android:name=".CarListActivity"
             android:exported="false" />
         <activity
-            android:name=".BookingStatusActivity"
+            android:name=".LoginActivity"
             android:exported="false" />
+        <activity
+            android:name=".CarDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NewCarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

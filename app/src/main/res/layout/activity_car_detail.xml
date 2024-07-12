@@ -1,31 +1,79 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="50dp"
+    android:columnCount="2"
+    android:alignmentMode="alignBounds"
+    android:columnOrderPreserved="true"
     android:padding="16dp">
 
+    <!-- Car Name -->
     <TextView
         android:id="@+id/tvCarName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Car Name"
-        android:textSize="18sp"
-        android:layout_marginBottom="8dp"/>
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_columnSpan="2"
+        android:layout_gravity="center_horizontal" />
 
+    <!-- Car Brand -->
     <TextView
-        android:id="@+id/tvCarModel"
+        android:id="@+id/tvCarBrand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Car Model"
+        android:text="Car Brand"
         android:textSize="18sp"
-        android:layout_below="@id/tvCarName"
-        android:layout_marginBottom="8dp"/>
+        android:textStyle="bold"
+        android:layout_columnSpan="2"
+        android:layout_gravity="center" />
 
+    <!-- Car Plate No -->
     <TextView
-        android:id="@+id/tvCarAvailability"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Availability"
-        android:textSize="18sp"
-        android:layout_below="@id/tvCarModel"
-        android:layout_marginBottom="8dp"/>
-</RelativeLayout>
+        android:text="Car Plate No:"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvCarPlateNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Car Plate No"
+        android:textSize="16sp" />
+
+    <!-- Status -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Status:"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Status"
+        android:textSize="16sp" />
+
+    <!-- Car Price -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Car Price:"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvCarPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Car Price"
+        android:textSize="16sp" />
+
+</GridLayout>
