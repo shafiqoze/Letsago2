@@ -227,9 +227,9 @@ public class CarListActivity extends AppCompatActivity implements CarAdapter.OnI
         startActivity(intent);
     }
 
-    /*public void floatingAddCarClicked(View view) {
-        Intent intent = new Intent(getApplicationContext(), NewCarActivity.class);
+    public void floatingAddCarClicked(View view) {
+        Intent intent = new Intent(getApplicationContext(), AddCarActivity.class);
         startActivity(intent);
-    }*/
+    }
 }
 

@@ -40,7 +40,7 @@
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".NewCarActivity"
+            android:name=".AddCarActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
