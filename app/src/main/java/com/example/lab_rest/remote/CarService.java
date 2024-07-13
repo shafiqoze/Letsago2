@@ -30,17 +30,19 @@ public interface CarService {
 
     );
 
+    @FormUrlEncoded
+    @POST("Cars/{CarID}")
+    Call<Car> updateCar(
+            @Header("api-key") String apiKey,@Path("CarID") int CarID,
+            @Field("CarBrand") String CarBrand, @Field("CarName") String CarName,
+            @Field("CarPlateNo") String CarPlateNo, @Field("CarPrice") String CarPrice
+
+    );
+
     @GET("Cars/{id}")
     Call<Car> getCar(
             @Header("api-key") String token,
             @Path("id") int id
-    );
-
-
-    @PUT("Cars/{id}")
-        Call<Car> updateCar(
-                @Header("Authorization") String token,
-                @Body Car car
     );
 
 
