@@ -15,7 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.lab_rest.model.User;
 import com.example.lab_rest.sharedpref.SharedPrefManager;
 
-public class MainActivity extends AppCompatActivity {
+public class UserMainActivity extends AppCompatActivity {
 
     private TextView tvHello;
 
@@ -23,53 +23,40 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_user_main);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        // get references
         tvHello = findViewById(R.id.tvHello);
 
-        // greet the user
-        // if the user is not logged in we will directly them to LoginActivity
         SharedPrefManager spm = new SharedPrefManager(getApplicationContext());
         if (!spm.isLoggedIn()) {
-            finish(); //stop main activity
-            // forward to Login Page
+            finish();
             startActivity(new Intent(this, LoginActivity.class));
         } else {
             User user = spm.getUser();
             if (user.getUsername() != null) {
-                tvHello.setText("Hello Admin!");
+                tvHello.setText("Hello User!");
             } else {
-                tvHello.setText("Hello Admin!");
+                tvHello.setText("Hello User!");
             }
         }
-
     }
 
     public void logoutClicked(View view) {
         SharedPrefManager spm = new SharedPrefManager(getApplicationContext());
         spm.logout();
-
-        Toast.makeText(getApplicationContext(), "You have successfully logged out.",
-                Toast.LENGTH_LONG).show();
-
+        Toast.makeText(getApplicationContext(), "You have successfully logged out.", Toast.LENGTH_LONG).show();
         finish();
-
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-        // implement this
-
+        startActivity(new Intent(this, LoginActivity.class));
     }
 
-    public void carListClicked(View view) {
-        // forward user to BookListActivity
-        Intent intent = new Intent(getApplicationContext(), CarListActivity.class);
+    public void customerCarListClicked(View view) {
+        //forward user to CustomerCarListActivity
+        Intent intent = new Intent(getApplicationContext(), UserCarList.class);
         startActivity(intent);
     }
-
 }

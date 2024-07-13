@@ -27,7 +27,7 @@ public interface CarService {
 
     @GET("Cars/{id}")
     Call<Car> getCar(
-            @Header("Authorization") String token,
+            @Header("api-key") String token,
             @Path("id") int id
     );
 

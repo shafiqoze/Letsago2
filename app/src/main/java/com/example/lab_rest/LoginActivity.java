@@ -26,6 +26,7 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
+    // add comment
     private EditText edtUsername;
     private EditText edtPassword;
 
@@ -59,7 +60,6 @@ public class LoginActivity extends AppCompatActivity {
             // if not empty, login using REST API
             doLogin(username, password);
         }
-
     }
 
     /**
@@ -70,10 +70,12 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void doLogin(String username, String password) {
 
+        // implement this
         // get UserService instance
         UserService userService = ApiUtils.getUserService();
 
         // prepare the REST API call using the service interface
+        //Call<User> call = userService.login(username, password);
         Call<User> call;
         if (username.contains("@")) {
             call = userService.loginEmail(username, password);
@@ -83,32 +85,34 @@ public class LoginActivity extends AppCompatActivity {
 
         // execute the REST API call
         call.enqueue(new Callback<User>() {
-
             @Override
-            public void onResponse(Call call, Response response) {
-
-                if (response.isSuccessful()) {  // code 200
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful()) { // code 200
                     // parse response to POJO
-                    User user = (User) response.body();
+                    User user = response.body();
                     if (user != null && user.getToken() != null) {
-                        // successful login. server replies a token value
+                        // successful login
+                        Log.d("LoginActivity", "User Details: " + user.toString());
                         displayToast("Login successful");
-                        displayToast("Token: " + user.getToken());
 
-                        //store value in shared preferences
-                        SharedPrefManager spm = new SharedPrefManager(getApplicationContext());
-                        spm.storeUser(user);
+                        // store value in Shared Preferences
+                        SharedPrefManager.getInstance(getApplicationContext()).storeUser(user);
 
-                        //forward user to MainActivity
+                        // Redirect based on user role
+                        Intent intent;
+                        if ("admin".equals(user.getRole()) || "superadmin".equals(user.getRole())) {
+                            intent = new Intent(getApplicationContext(), MainActivity.class);
+                        } else {
+                            intent = new Intent(getApplicationContext(), UserMainActivity.class);
+                        }
+
                         finish();
-                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                    }
-                    else {
+                        startActivity(intent);
+                    } else {
                         // server return success but no user info replied
                         displayToast("Login error");
                     }
-                }
-                else {  // other than 200
+                } else { // other than 200
                     // try to parse the response to FailLogin POJO
                     String errorResp = null;
                     try {
@@ -116,27 +120,21 @@ public class LoginActivity extends AppCompatActivity {
                         FailLogin e = new Gson().fromJson(errorResp, FailLogin.class);
                         displayToast(e.getError().getMessage());
                     } catch (Exception e) {
-                        Log.e("MyApp:", e.toString()); // print error details to error log
+                        Log.e("LoginActivity:", e.toString());  // print error details to error log
                         displayToast("Error");
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call call, Throwable t) {
+            public void onFailure(Call<User> call, Throwable t) {
                 displayToast("Error connecting to server.");
                 displayToast(t.getMessage());
-                Log.e("MyApp:", t.toString()); // print error details to error log
+                Log.e("LoginActivity:", t.toString());  // print error details to error log
             }
         });
     }
 
-    /**
-     * Validate value of username and password entered. Client side validation.
-     * @param username
-     * @param password
-     * @return
-     */
     private boolean validateLogin(String username, String password) {
         if (username == null || username.trim().isEmpty()) {
             displayToast("Username is required");
@@ -149,12 +147,7 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
-    /**
-     * Display a Toast message
-     * @param message message to be displayed inside toast
-     */
     public void displayToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
-
 }

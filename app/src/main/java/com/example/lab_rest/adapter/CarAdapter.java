@@ -5,12 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.lab_rest.R;
 import com.example.lab_rest.model.Car;
-
 import java.util.List;
 
 public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder> {
@@ -18,7 +15,8 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder> {
     /**
      * Create ViewHolder class to bind list item view
      */
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
+
         public TextView tvCarName;
         public TextView tvCarBrand;
         public TextView tvCarPrice;
@@ -28,7 +26,26 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder> {
             tvCarName = itemView.findViewById(R.id.tvCarName);
             tvCarBrand = itemView.findViewById(R.id.tvCarBrand);
             tvCarPrice = itemView.findViewById(R.id.tvCarPrice);
+
+            itemView.setOnLongClickListener(this);
+            itemView.setOnClickListener(this);
         }
+        @Override
+        public boolean onLongClick(View v) {
+            currentPos = getAdapterPosition();
+            return false;
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (clickListener != null) {
+                clickListener.onItemClick(getAdapterPosition());
+            }
+        }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
     }
 
     //////////////////////////////////////////////////////////////////////
@@ -37,10 +54,12 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.ViewHolder> {
     private List<Car> carsListData;   // list of book objects
     private Context mContext;   // activity context
     private int currentPos;
+    private OnItemClickListener clickListener;
 
-    public CarAdapter(Context context, List<Car> listData) {
+    public CarAdapter(Context context, List<Car> listData, OnItemClickListener listener) {
         carsListData = listData;
         mContext = context;
+        clickListener = listener;
     }
 
     private Context getmContext() {

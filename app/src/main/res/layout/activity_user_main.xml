@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".UserMainActivity"
     android:id="@+id/main">
 
     <TextView
@@ -24,24 +24,14 @@
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
         android:text="Cars"
-        android:onClick="carListClicked" />
-
-    <Button
-        android:id="@+id/btnBookingList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btnCars"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:onClick="bookingListClicked"
-        android:text="Booking List" />
+        android:onClick="customerCarListClicked" />
 
     <Button
         android:id="@+id/btnLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/btnCars"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
         android:text="Logout"
         android:onClick="logoutClicked" />

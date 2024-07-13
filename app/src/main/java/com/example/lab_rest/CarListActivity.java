@@ -1,5 +1,6 @@
 package com.example.lab_rest;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -28,12 +30,11 @@ import com.example.lab_rest.remote.CarService;
 import com.example.lab_rest.sharedpref.SharedPrefManager;
 
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CarListActivity extends AppCompatActivity {
+public class CarListActivity extends AppCompatActivity implements CarAdapter.OnItemClickListener {
 
     private CarService carService;
     private RecyclerView rvCarList;
@@ -43,6 +44,7 @@ public class CarListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_list);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -51,8 +53,6 @@ public class CarListActivity extends AppCompatActivity {
 
         // get reference to the RecyclerView carList
         rvCarList = findViewById(R.id.rvCarList);
-
-        //register for context menu
         registerForContextMenu(rvCarList);
 
         // fetch and update car list
@@ -60,58 +60,56 @@ public class CarListActivity extends AppCompatActivity {
     }
 
     private void updateRecyclerView() {
-        // get user info from SharedPreferences to get token value
-        SharedPrefManager spm = new SharedPrefManager(getApplicationContext());
+        SharedPrefManager spm = SharedPrefManager.getInstance(getApplicationContext());
         User user = spm.getUser();
         String token = user.getToken();
 
-        // get book service instance
-        carService = ApiUtils.getCarService();
+        carService = ApiUtils.getCarService(); //get car service instance
 
-        // execute the call. send the user token when sending the query
         carService.getAllCars(token).enqueue(new Callback<List<Car>>() {
             @Override
             public void onResponse(Call<List<Car>> call, Response<List<Car>> response) {
-                // for debug purpose
-                Log.d("MyApp:", "Response: " + response.raw().toString());
-
-                if (response.code() == 200) {
-                    // Get list of car object from response
-                    List<Car> books = response.body();
-
-                    // initialize adapter
-                    adapter = new CarAdapter(getApplicationContext(), books);
-
-                    // set adapter to the RecyclerView
+                if (response.isSuccessful() && response.body() != null) {
+                    //get list of car from response
+                    List<Car> cars = response.body();
+                    //initialize adapter
+                    adapter = new CarAdapter(getApplicationContext(), cars, CarListActivity.this);
+                    //set adapter to RV
                     rvCarList.setAdapter(adapter);
-
-                    // set layout to recycler view
+                    //set layout to rv
                     rvCarList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
-                    // add separator between item in the list
-                    DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvCarList.getContext(),
-                            DividerItemDecoration.VERTICAL);
-                    rvCarList.addItemDecoration(dividerItemDecoration);
-                }
-                else if (response.code() == 401) {
-                    // invalid token, ask user to relogin
-                    Toast.makeText(getApplicationContext(), "Invalid session. Please login again", Toast.LENGTH_LONG).show();
-                    clearSessionAndRedirect();
-                }
-                else {
-                    Toast.makeText(getApplicationContext(), "Error: " + response.message(), Toast.LENGTH_LONG).show();
-                    // server return other error
-                    Log.e("MyApp: ", response.toString());
+                    rvCarList.addItemDecoration(new DividerItemDecoration(rvCarList.getContext(), DividerItemDecoration.VERTICAL));
+                } else {
+                    Toast.makeText(getApplicationContext(), "Error fetching cars", Toast.LENGTH_LONG).show();
+                    if (response.code() == 401) {
+                        // Invalid token, ask user to re-login
+                        Toast.makeText(getApplicationContext(), "Invalid session. Please login again", Toast.LENGTH_LONG).show();
+                        SharedPrefManager.getInstance(getApplicationContext()).logout();
+                        startActivity(new Intent(CarListActivity.this, LoginActivity.class));
+                        finish();
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<List<Car>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Error connecting to the server", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Error connecting to server", Toast.LENGTH_LONG).show();
                 Log.e("MyApp:", t.toString());
             }
         });
     }
+
+    @Override
+    public void onItemClick(int position) {
+        Car selectedCar = adapter.getSelectedItem();
+        if (selectedCar != null) {
+            Intent intent = new Intent(CarListActivity.this,UserBookingActivity.class);
+            intent.putExtra("car_price", selectedCar.getCarPrice());
+            intent.putExtra("car_id", selectedCar.getCarID());
+            startActivity(intent);
+        }
+    }
+
 
     /**
      * Delete car record. Called by contextual menu "Delete"
@@ -155,7 +153,6 @@ public class CarListActivity extends AppCompatActivity {
             }
         });
     }
-
     /**
      * Displaying an alert dialog with a single button
      * @param message - message to be displayed
@@ -175,17 +172,15 @@ public class CarListActivity extends AppCompatActivity {
     }
 
     public void clearSessionAndRedirect() {
-        // clear the shared preferences
         SharedPrefManager spm = new SharedPrefManager(getApplicationContext());
         spm.logout();
 
-        // terminate this MainActivity
-        finish();
+        //terminate mainActivity
+        //finish();
 
-        // forward to Login Page
+        //forward to login page
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
-
     }
 
     @Override
@@ -194,4 +189,47 @@ public class CarListActivity extends AppCompatActivity {
         inflater.inflate(R.menu.car_context_menu, menu);
     }
 
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        Car selectedCar = adapter.getSelectedItem();
+        Log.d("MyApp", "selected " + selectedCar.toString());
+
+        //user clicked details contextual menu
+        if (item.getItemId() == R.id.menu_details) {
+            doViewDetails(selectedCar);
+        }
+        else if (item.getItemId() == R.id.menu_delete) {
+            // user clicked the delete contextual menu
+            doDeleteCar(selectedCar);
+        }
+
+        /*else if (item.getItemId() == R.id.menu_update) {
+            // user clicked the update contextual menu
+            doUpdateCar(selectedCar);
+        }*/
+
+        return super.onContextItemSelected(item);
+    }
+
+    /*private void doUpdateCar(Car selectedCar) {
+        Log.d("My App:", "update car: " + selectedCar.toString());
+        //forward user to UpdateCarActivity, passing the selected car id
+        Intent intent = new Intent(getApplicationContext(), UpdateCarActivity.class);
+        intent.putExtra("car_id", selectedCar.getCarID());
+        startActivity(intent);
+    }*/
+
+    private void doViewDetails(Car selectedCar) {
+        Log.d("MyApp:", "viewing details: " + selectedCar.toString());
+        // forward user to CarDetailsActivity, passing the selected car id
+        Intent intent = new Intent(getApplicationContext(), CarDetailsActivity.class);
+        intent.putExtra("car_id", selectedCar.getCarID());
+        startActivity(intent);
+    }
+
+    /*public void floatingAddCarClicked(View view) {
+        Intent intent = new Intent(getApplicationContext(), NewCarActivity.class);
+        startActivity(intent);
+    }*/
 }
+
