@@ -72,13 +72,18 @@ public class CarListActivity extends AppCompatActivity implements CarAdapter.OnI
                 if (response.isSuccessful() && response.body() != null) {
                     //get list of car from response
                     List<Car> cars = response.body();
+
                     //initialize adapter
                     adapter = new CarAdapter(getApplicationContext(), cars, CarListActivity.this);
+
                     //set adapter to RV
                     rvCarList.setAdapter(adapter);
+
                     //set layout to rv
                     rvCarList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                    rvCarList.addItemDecoration(new DividerItemDecoration(rvCarList.getContext(), DividerItemDecoration.VERTICAL));
+
+                    rvCarList.addItemDecoration(new DividerItemDecoration(rvCarList.getContext(),
+                            DividerItemDecoration.VERTICAL));
                 } else {
                     Toast.makeText(getApplicationContext(), "Error fetching cars", Toast.LENGTH_LONG).show();
                     if (response.code() == 401) {

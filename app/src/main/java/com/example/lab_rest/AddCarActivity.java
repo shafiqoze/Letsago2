@@ -40,7 +40,6 @@ import retrofit2.Response;
 
 public class AddCarActivity extends AppCompatActivity {
 
-    private EditText txtCarID;
     private EditText txtCarBrand;
     private EditText txtCarName;
     private EditText txtCarPlateNo;
@@ -58,7 +57,6 @@ public class AddCarActivity extends AppCompatActivity {
         });
 
         // get view objects references
-        txtCarID = findViewById(R.id.txtCarID);
         txtCarBrand = findViewById(R.id.txtCarBrand);
         txtCarName = findViewById(R.id.txtCarName);
         txtCarPlateNo = findViewById(R.id.txtCarPlateNo);
@@ -73,7 +71,6 @@ public class AddCarActivity extends AppCompatActivity {
      */
     public void addCar(View v) {
         // get values in form
-        int CarID = Integer.parseInt(txtCarID.getText().toString());
         String CarBrand = txtCarBrand.getText().toString();
         String CarName = txtCarName.getText().toString();
         String CarPlateNo = txtCarPlateNo.getText().toString();

@@ -44,9 +44,9 @@ public interface CarService {
     );
 
 
-    @DELETE("Car/{id}")
+    @DELETE("Cars/{id}")
     Call<DeleteResponse> deleteCar(
-            @Header("Authorization") String token,
+            @Header(("api_key")) String apikey,
             @Path("id") int id
     );
 
