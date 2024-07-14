@@ -72,4 +72,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void bookingListClicked(View view) {
+        Intent intent = new Intent(getApplicationContext(), BookingListActivity.class);
+        startActivity(intent);
+    }
+
 }

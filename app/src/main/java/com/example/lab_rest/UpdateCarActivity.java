@@ -3,7 +3,6 @@ package com.example.lab_rest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -68,10 +67,10 @@ public class UpdateCarActivity extends AppCompatActivity {
         User user = spm.getUser();
 
         // get book service instance
-        CarService bookService = ApiUtils.getCarService();
+        CarService carService = ApiUtils.getCarService();
 
         // execute the API query. send the token and book id
-        bookService.getCar(user.getToken(), id).enqueue(new Callback<Car>() {
+        carService.getCar(user.getToken(), id).enqueue(new Callback<Car>() {
             @Override
             public void onResponse(Call<Car> call, Response<Car> response) {
                 // for debug purpose

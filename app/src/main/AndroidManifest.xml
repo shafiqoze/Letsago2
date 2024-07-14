@@ -16,6 +16,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".BookingListActivity"
+            android:exported="false" />
+        <activity
             android:name=".UserBookingActivity"
             android:exported="false" />
         <activity
@@ -28,10 +31,7 @@
             android:name=".CarDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".BookingDetailsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".BookingListActivity"
+            android:name=".UpdateCarActivity"
             android:exported="false" />
         <activity
             android:name=".CarListActivity"
