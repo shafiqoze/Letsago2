@@ -4,96 +4,101 @@ import java.util.Date;
 
 public class Booking {
 
-    private int BookingID;
-    private String PickupDate;
-    private String ReturnDate;
-    private String Status;
-    private double Price;
-    private int id;
-    private int CarID;
+    private int booking_id;
+    private String pickupDate;
+    private String returnDate;
+    private String status;
+    private double price;
+    private int user_id;
+    private int car_id;
 
     public User user;
     public Car car;
 
-    public Booking() {
+    public int getBooking_id() {
+        return booking_id;
     }
 
-    public Booking(int bookingID, String pickup_date, String return_date, String booking_status, double totalPrice, int user_id , int car_id) {
-        this.BookingID = bookingID;
-        this.PickupDate = pickup_date;
-        this.ReturnDate = return_date;
-        this.Status = booking_status;
-        this.Price = totalPrice;
-        this.id = user_id;
-        this.CarID = car_id;
-    }
-
-    public int getBookingID() {
-        return BookingID;
-    }
-
-    public void setBookingID(int bookingID) {
-        BookingID = bookingID;
+    public void setBooking_id(int booking_id) {
+        this.booking_id = booking_id;
     }
 
     public String getPickupDate() {
-        return PickupDate;
+        return pickupDate;
     }
 
     public void setPickupDate(String pickupDate) {
-        PickupDate = pickupDate;
+        this.pickupDate = pickupDate;
     }
 
     public String getReturnDate() {
-        return ReturnDate;
+        return returnDate;
     }
 
     public void setReturnDate(String returnDate) {
-        ReturnDate = returnDate;
+        this.returnDate = returnDate;
     }
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(String status) {
-        Status = status;
+        this.status = status;
     }
 
     public double getPrice() {
-        return Price;
+        return price;
     }
 
     public void setPrice(double price) {
-        Price = price;
+        this.price = price;
     }
 
-    public int getId() {
-        return id;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
-    public int getCarID() {
-        return CarID;
+    public int getCar_id() {
+        return car_id;
     }
 
-    public void setCarID(int carID) {
-        CarID = carID;
+    public void setCar_id(int car_id) {
+        this.car_id = car_id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
     }
 
     @Override
     public String toString() {
         return "Booking{" +
-                "bookingID=" + BookingID +
-                ", pickup_date=" + PickupDate +
-                ", return_date=" + ReturnDate +
-                ", booking_status='" + Status + '\'' +
-                ", totalPrice=" + Price +
-                ", user_id=" + id +
-                ", car_id=" + CarID +
+                "booking_id=" + booking_id +
+                ", pickupDate='" + pickupDate + '\'' +
+                ", returnDate='" + returnDate + '\'' +
+                ", status='" + status + '\'' +
+                ", price=" + price +
+                ", user_id=" + user_id +
+                ", car_id=" + car_id +
+                ", user=" + user +
+                ", car=" + car +
                 '}';
     }
 }

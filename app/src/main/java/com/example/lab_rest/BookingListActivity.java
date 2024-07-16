@@ -96,7 +96,7 @@ public class BookingListActivity extends AppCompatActivity {
         User user = spm.getUser();
 
         BookingService bookingService = ApiUtils.getBookingService();
-        Call<DeleteResponse> call = bookingService.deleteBooking(user.getToken(), selectedBooking.getBookingID());
+        Call<DeleteResponse> call = bookingService.deleteBooking(user.getToken(), selectedBooking.getBooking_id());
 
         call.enqueue(new Callback<DeleteResponse>() {
             @Override
@@ -124,7 +124,7 @@ public class BookingListActivity extends AppCompatActivity {
         User user = spm.getUser();
 
         BookingService bookingService = ApiUtils.getBookingService();
-        Call<Booking> call = bookingService.updateBookingStatus(user.getToken(), selectedBooking.getBookingID(), status, message);
+        Call<Booking> call = bookingService.updateBookingStatus(user.getToken(), selectedBooking.getBooking_id(), status, message);
 
         call.enqueue(new Callback<Booking>() {
             @Override

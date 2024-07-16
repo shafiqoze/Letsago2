@@ -18,7 +18,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface BookingService {
-    @GET("booking/?order=pickup_date&orderType=asc")
+    @GET("booking/?order=pickupDate&orderType=desc")
     Call<List<Booking>> getAllBooking(@Header("api-key") String api_key);
 
     @GET("booking/{BookingID}")
@@ -27,12 +27,10 @@ public interface BookingService {
     @FormUrlEncoded
     @POST("booking")
     Call<Booking> addBooking(@Header("api-key") String apiKey,
-                             @Field("pickup_date") String pickup_date,
-                             @Field("return_date") String return_date,
-                             @Field("pickup_location") String pickup_location,
-                             @Field("return_location") String return_location,
-                             @Field("booking_status") String booking_status,
-                             @Field("totalPrice") double totalPrice,
+                             @Field("pickupDate") String pickup_date,
+                             @Field("returnDate") String return_date,
+                             @Field("status") String booking_status,
+                             @Field("price") double totalPrice,
                              @Field("user_id") int user_id,
                              @Field("car_id") int car_id );
 

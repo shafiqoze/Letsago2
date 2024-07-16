@@ -66,13 +66,13 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Booking b = bookingListData.get(position);
-        holder.tvBookingID.setText(String.valueOf(b.getBookingID()));
+        holder.tvBookingID.setText(String.valueOf(b.getBooking_id()));
         holder.tvPickup_date.setText(String.valueOf(b.getPickupDate()));
         holder.tvReturn_date.setText(String.valueOf(b.getReturnDate()));
         holder.tvBookingstatus.setText(b.getStatus());
         holder.tvTotalprice.setText(String.valueOf(b.getPrice()));
-        holder.tvUser_id.setText(String.valueOf(b.getId()));
-        holder.tvCar_id.setText(String.valueOf(b.getCarID()));
+        holder.tvUser_id.setText(String.valueOf(b.getUser().getUsername()));
+        holder.tvCar_id.setText(String.valueOf(b.getCar().getCarPlateNo()));
     }
 
     @Override
