@@ -119,55 +119,44 @@ public class BookingListActivity extends AppCompatActivity {
         });
     }
 
-    private void updateBookingStatus(Booking selectedBooking, String status, String message) {
+    private void updateBookingStatus(Booking booking, String status) {
         SharedPrefManager spm = SharedPrefManager.getInstance(getApplicationContext());
-        User user = spm.getUser();
+        String token = spm.getUser().getToken();
 
         BookingService bookingService = ApiUtils.getBookingService();
-        Call<Booking> call = bookingService.updateBookingStatus(user.getToken(), selectedBooking.getBooking_id(), status, message);
-
-        call.enqueue(new Callback<Booking>() {
+        bookingService.updateBookingStatus(token, booking.getBooking_id(), status, "").enqueue(new Callback<Booking>() {
             @Override
             public void onResponse(Call<Booking> call, Response<Booking> response) {
                 if (response.isSuccessful()) {
-                    displayAlert("Booking status updated successfully");
-                    updateRecyclerView();
+                    Toast.makeText(BookingListActivity.this, "Booking status updated to " + status, Toast.LENGTH_SHORT).show();
+                    // Optionally, refresh the bookings list or take other actions
                 } else {
-                    Toast.makeText(getApplicationContext(), "Error: " + response.message(), Toast.LENGTH_LONG).show();
-                    if (response.code() == 401) {
-                        Toast.makeText(getApplicationContext(), "Invalid session. Please login again", Toast.LENGTH_LONG).show();
-                        clearSessionAndRedirect();
-                    }
+                    Toast.makeText(BookingListActivity.this, "Failed to update booking status", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Booking> call, Throwable t) {
-                displayAlert("Error [" + t.getMessage() + "]");
+                Toast.makeText(BookingListActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 
     private void showUpdateStatusDialog(Booking booking) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Update Booking Status");
 
-        final EditText input = new EditText(this);
-        input.setHint("Enter Remarks:");
-        builder.setView(input);
-
         builder.setPositiveButton("Approve", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String message = input.getText().toString();
-                updateBookingStatus(booking, "Approved", message);
+                updateBookingStatus(booking, "Approved");
             }
         });
         builder.setNegativeButton("Reject", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String message = input.getText().toString();
-                updateBookingStatus(booking, "Rejected", message);
+                updateBookingStatus(booking, "Rejected");
             }
         });
         builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
@@ -179,6 +168,7 @@ public class BookingListActivity extends AppCompatActivity {
 
         builder.show();
     }
+
 
     public void displayAlert(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -203,7 +193,7 @@ public class BookingListActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /*@Override
+    @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.booking_context_menu, menu);
@@ -229,7 +219,7 @@ public class BookingListActivity extends AppCompatActivity {
     private void doViewDetails(Booking selectedBooking) {
         Log.d("MyApp:", "viewing details: " + selectedBooking.toString());
         Intent intent = new Intent(getApplicationContext(), BookingDetailsActivity.class);
-        intent.putExtra("bookingID", selectedBooking.getBookingID());
+        intent.putExtra("bookingID", selectedBooking.getBooking_id());
         startActivity(intent);
-    }*/
+    }
 }
