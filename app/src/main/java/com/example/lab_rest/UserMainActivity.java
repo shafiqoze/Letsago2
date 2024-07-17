@@ -54,9 +54,15 @@ public class UserMainActivity extends AppCompatActivity {
         startActivity(new Intent(this, LoginActivity.class));
     }
 
-    public void customerCarListClicked(View view) {
-        //forward user to CustomerCarListActivity
+    public void userCarListClicked(View view) {
+        //forward user to UserCarListActivity
         Intent intent = new Intent(getApplicationContext(), UserCarList.class);
+        startActivity(intent);
+    }
+
+    public void userBookingListClicked(View view) {
+        //forward user to userBookingListActivity
+        Intent intent = new Intent(getApplicationContext(), UserBookingListActivity.class);
         startActivity(intent);
     }
 }

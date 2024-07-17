@@ -216,6 +216,9 @@ public class UserCarList extends AppCompatActivity implements CarAdapter.OnItemC
         return super.onContextItemSelected(item);
     }
 
+
+
+
     private void doUpdateCar(Car selectedCar) {
         Log.d("My App:", "update car: " + selectedCar.toString());
         //forward user to UpdateCarActivity, passing the selected car id
