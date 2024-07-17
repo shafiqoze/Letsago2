@@ -6,21 +6,24 @@
     android:useDefaultMargins="true"
     android:alignmentMode="alignBounds"
     android:id="@+id/main"
+    android:background="@drawable/add"
     android:columnOrderPreserved="false"
     android:columnCount="2"
-    android:layout_marginTop="40dp"
-    >
+    android:layout_marginTop="0dp">
 
     <TextView
         android:layout_columnSpan="2"
         android:layout_gravity="center_horizontal"
         android:text="Add New Car"
-        android:textSize="32dip" />
+        android:textStyle="bold"
+        android:textSize="32dip"
+        android:layout_marginTop="30dp"/>
 
     <TextView
         android:layout_columnSpan="2"
         android:layout_gravity="center"
         android:text="Enter car information"
+        android:textStyle="italic"
         android:textSize="16dip" />
 
     <LinearLayout
@@ -32,13 +35,15 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.25"
-                android:text="Car Brand:" />
+                android:text="Car Brand:"/>
 
             <EditText
                 android:id="@+id/txtCarBrand"
@@ -46,13 +51,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.75"
                 android:inputType="textMultiLine"
-                android:lines="2" />
+                android:lines="1" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
 
             <TextView
                 android:layout_width="0dp"
@@ -70,7 +77,9 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
 
             <TextView
                 android:layout_width="0dp"
@@ -88,7 +97,9 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
 
             <TextView
                 android:layout_width="0dp"
@@ -105,15 +116,20 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="380dp"
             android:layout_height="wrap_content"
-            >
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
 
             <Button
-                android:layout_width="match_parent"
+                android:layout_width="114dp"
                 android:layout_height="wrap_content"
-                android:text="Add Car"
-                android:onClick="addCar" />
+                android:layout_marginLeft="148dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:onClick="addCar"
+                android:backgroundTint="@color/black"
+                android:text="Add Car" />
 
         </LinearLayout>
 

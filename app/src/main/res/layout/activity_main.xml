@@ -6,24 +6,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:id="@+id/main">
+    android:id="@+id/main"
+    android:background="@drawable/booking">
 
     <TextView
         android:id="@+id/tvHello"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="230dp"
+        android:layout_marginEnd="0dp"
+        android:gravity="center_horizontal"
         android:text="Hello World!"
-        android:textSize="24sp" />
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/btnCars"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvHello"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
         android:text="Cars"
+        android:backgroundTint="@color/black"
         android:onClick="carListClicked" />
 
     <Button
@@ -34,7 +42,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
         android:onClick="bookingListClicked"
-        android:text="Booking List" />
+        android:text="Booking List"
+        android:backgroundTint="@color/black"/>
 
     <Button
         android:id="@+id/btnLogout"
@@ -44,6 +53,7 @@
         android:layout_marginTop="60dp"
         android:layout_centerHorizontal="true"
         android:text="Logout"
-        android:onClick="logoutClicked" />
+        android:onClick="logoutClicked"
+        android:backgroundTint="#9C0B0B"/>
 
 </RelativeLayout>

@@ -6,25 +6,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UserMainActivity"
-    android:id="@+id/main">
+    android:id="@+id/main"
+    android:background="@drawable/booking">
 
     <TextView
         android:id="@+id/tvHello"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="230dp"
+        android:layout_marginEnd="0dp"
+        android:gravity="center_horizontal"
         android:text="Hello World!"
-        android:textSize="24sp" />
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/btnCars"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvHello"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
         android:text="Cars"
-        android:onClick="userCarListClicked" />
+        android:backgroundTint="@color/black"
+        android:onClick="carListClicked" />
 
     <Button
         android:id="@+id/btnBookingList"
@@ -36,7 +44,7 @@
         android:layout_marginStart="142dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="141dp"
-        android:backgroundTint="#009688"
+        android:backgroundTint="@color/black"
         android:onClick="userBookingListClicked"
         android:text="Booking List"
         android:textColorLink="#E91E63"
@@ -55,6 +63,7 @@
         android:layout_marginTop="2dp"
         android:layout_marginEnd="159dp"
         android:onClick="logoutClicked"
+        android:backgroundTint="#9C0B0B"
         android:text="Logout" />
 
 </RelativeLayout>

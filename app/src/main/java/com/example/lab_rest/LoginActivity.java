@@ -150,4 +150,6 @@ public class LoginActivity extends AppCompatActivity {
     public void displayToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
+
+
 }
