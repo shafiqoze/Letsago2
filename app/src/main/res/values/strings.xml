@@ -7,4 +7,11 @@
     <string name="rent">Want Rent A Car?</string>
     <string name="going_today">Your Key to Easy Living</string>
 
+    <string-array name="roles_array">
+        <item>superadmin</item>
+        <item>admin</item>
+        <item>user</item>
+    </string-array>
+
 </resources>
+

@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             if (user.getUsername() != null) {
                 tvHello.setText("Hello Admin!");
             } else {
-                tvHello.setText("Hello Admin!");
+                tvHello.setText("Hello User!");
             }
         }
 
@@ -76,6 +76,5 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), BookingListActivity.class);
         startActivity(intent);
     }
-
 
 }

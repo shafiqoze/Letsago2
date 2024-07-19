@@ -41,7 +41,7 @@ public class UserMainActivity extends AppCompatActivity {
             if (user.getUsername() != null) {
                 tvHello.setText("Hello User!");
             } else {
-                tvHello.setText("Hello User!");
+                tvHello.setText("Hello Admin!");
             }
         }
     }

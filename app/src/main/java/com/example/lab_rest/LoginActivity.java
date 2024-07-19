@@ -135,6 +135,11 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    public void RegisterHere(View view) {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+    }
+
     private boolean validateLogin(String username, String password) {
         if (username == null || username.trim().isEmpty()) {
             displayToast("Username is required");

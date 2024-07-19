@@ -32,7 +32,7 @@
         android:layout_centerHorizontal="true"
         android:text="Cars"
         android:backgroundTint="@color/black"
-        android:onClick="carListClicked" />
+        android:onClick="userCarListClicked" />
 
     <Button
         android:id="@+id/btnBookingList"
